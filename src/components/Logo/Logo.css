@@ -1,0 +1,18 @@
+.Tilt {
+    background: linear-gradient(89deg, #FF5EDF 0%, #04C8DE);
+}
+
+
+@media (max-width: 610px) {
+   
+
+    .Tilt {
+        width: 100px !important;
+        height: 100px !important;
+    }
+
+    .Tilt img {
+        width: 50px;
+        height: 50px;
+    }
+}
