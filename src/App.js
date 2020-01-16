@@ -16,6 +16,8 @@ const app = new Clarifai.App({
   apiKey: '0124e25ee74f495f8d426b49219d797e'
  });
 
+const address = "http://localhost:3000/"
+
 const particlesOptions = {
   particles: {
     number: {
@@ -93,7 +95,7 @@ class App extends Component {
     app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
       .then(response => {
         if(response) {
-          fetch('http://localhost:3000/image', {
+          fetch(`${ address }image`, {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -157,10 +159,12 @@ class App extends Component {
           route === 'signin' 
           ? <Signin 
               onRouteChange={ this.onRouteChange }
-              loadUser={ this.loadUser }/>
+              loadUser={ this.loadUser }
+              address={ address }/>
           : <Register 
               onRouteChange={ this.onRouteChange } 
-              loadUser={ this.loadUser }/>
+              loadUser={ this.loadUser }
+              address={ address }/>
         )
         
         }
