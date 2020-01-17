@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation';
 import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
@@ -12,9 +11,6 @@ import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import './App.css';
 
 
-const app = new Clarifai.App({
-  apiKey: '0124e25ee74f495f8d426b49219d797e'
- });
 
 const address = "http://localhost:3000/"
 
@@ -68,6 +64,7 @@ class App extends Component {
   }
 
   calculateFaceLocation = (data) => {
+    // console.log(data)
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
     const image = document.getElementById('inputimage')
     const width = Number(image.width)
@@ -92,7 +89,15 @@ class App extends Component {
   onButtonSubmit = () => {
 
     this.setState({ imageUrl: this.state.input })
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+    
+    fetch(`${ address }imageurl`, {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+          input: this.state.input
+      })
+    }).then(data => {
+      return data.json()})
       .then(response => {
         if(response) {
           fetch(`${ address }image`, {
