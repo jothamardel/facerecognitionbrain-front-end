@@ -12,7 +12,7 @@ import './App.css';
 
 
 
-const address = "http://localhost:3000/"
+const address = "https://gentle-scrubland-05891.herokuapp.com/"
 
 const particlesOptions = {
   particles: {
@@ -97,7 +97,8 @@ class App extends Component {
           input: this.state.input
       })
     }).then(data => {
-      return data.json()})
+      return data.json()
+    })
       .then(response => {
         if(response) {
           fetch(`${ address }image`, {
